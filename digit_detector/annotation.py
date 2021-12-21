@@ -1,6 +1,6 @@
 #-*- coding: utf-8 -*-
 
-import file_io
+import digit_detector.file_io as file_io
 import os
 import numpy as np
 

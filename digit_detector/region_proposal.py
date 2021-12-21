@@ -3,8 +3,8 @@ import numpy as np
 import cv2
 from matplotlib import pyplot as plt
 
-import crop
-import show
+import digit_detector.crop as crop
+import digit_detector.show as show
 
 
 class Regions:
@@ -60,8 +60,9 @@ class MserRegionProposer(_RegionProposer):
     
     def detect(self, img):
         gray = self._to_gray(img)
-        mser = cv2.MSER(_delta = 1)
-        regions = mser.detect(gray, None)
+        #print(gray.shape, gray.dtype)
+        mser = cv2.MSER_create(delta=1)
+        regions,_ = mser.detectRegions(gray)
         bounding_boxes = self._get_boxes(regions)
         regions = Regions(img, bounding_boxes)
         return regions
@@ -69,6 +70,7 @@ class MserRegionProposer(_RegionProposer):
     def _get_boxes(self, regions):
         bbs = []
         for i, region in enumerate(regions):
+            #region = np.ascontiguousarray(region, dtype=np.uint8)
             (x, y, w, h) = cv2.boundingRect(region.reshape(-1,1,2))
             bbs.append((y, y+h, x, x+w))
             
@@ -90,7 +92,7 @@ class OverlapCalculator:
     
     def _calc(self, boxes, true_boxes):
         ious_for_each_gt = []
-        
+        #print(boxes.shape)
         for truth_box in true_boxes:
             y1 = boxes[:, 0]
             y2 = boxes[:, 1]
