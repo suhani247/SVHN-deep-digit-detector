@@ -76,4 +76,4 @@ class Evaluator(object):
 
     
     def _print_msg(self, recall, precision, f1_score):
-        print "recall value : {}, precision value : {}, f1_score : {}".format(recall, precision, f1_score)
+        print("recall value : {}, precision value : {}, f1_score : {}".format(recall, precision, f1_score))
