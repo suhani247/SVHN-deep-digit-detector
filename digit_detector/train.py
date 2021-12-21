@@ -1,7 +1,7 @@
 
 from keras.models import Sequential
 from keras.layers import Dense, Dropout, Activation, Flatten
-from keras.layers import Convolution2D, MaxPooling2D
+from keras.layers import Convolution2D, MaxPooling2D, Conv2D
 from keras import backend as K
 from keras.preprocessing.image import ImageDataGenerator
 
@@ -26,18 +26,22 @@ def train_detector(X_train, X_test, Y_train, Y_test, nb_filters = 32, batch_size
     model = Sequential()
     model.add(Convolution2D(nb_filters, kernel_size[0], kernel_size[1],
                             padding='valid',
-                            input_shape=input_shape, data_format='channels_first'))
+                            input_shape=input_shape, data_format='channels_last'))
     model.add(Activation('relu'))
-    model.add(Convolution2D(nb_filters, kernel_size[0], kernel_size[1]))
+    model.add(Conv2D(nb_filters, kernel_size[0], kernel_size[1]))
     model.add(Activation('relu'))
     model.add(MaxPooling2D(pool_size=pool_size))
+    print('1')
+    model.summary()
     # (16, 8, 32)
      
-    model.add(Convolution2D(nb_filters*2, kernel_size[0], kernel_size[1]))
+    model.add(Conv2D(nb_filters*2, kernel_size[0], kernel_size[1]))
     model.add(Activation('relu'))
-    model.add(Convolution2D(nb_filters*2, kernel_size[0], kernel_size[1]))
+    model.add(Conv2D(nb_filters*2, kernel_size[0], kernel_size[1]))
     model.add(Activation('relu'))
     model.add(MaxPooling2D(pool_size=pool_size))
+    print('2')
+    model.summary()
     # (8, 4, 64) = (2048)
         
     model.add(Flatten())
@@ -46,7 +50,8 @@ def train_detector(X_train, X_test, Y_train, Y_test, nb_filters = 32, batch_size
     model.add(Dropout(0.5))
     model.add(Dense(nb_classes))
     model.add(Activation('softmax'))
-        
+    print('3')    
+    model.summary()
     model.compile(loss='categorical_crossentropy',
                   optimizer='adadelta',
                   metrics=['accuracy'])
