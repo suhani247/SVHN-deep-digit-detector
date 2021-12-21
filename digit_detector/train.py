@@ -21,11 +21,12 @@ def train_detector(X_train, X_test, Y_train, Y_test, nb_filters = 32, batch_size
     # convolution kernel size
     kernel_size = (3, 3) 
     input_shape = (img_rows, img_cols, 1)
-
+    #print(X_train.shape)
+    #input_shape = X_train.shape
 
     model = Sequential()
-    model.add(Convolution2D(nb_filters, kernel_size[0], kernel_size[1],
-                            padding='valid',
+    model.add(Conv2D(nb_filters, kernel_size[0], kernel_size[1],
+                            padding='same',
                             input_shape=input_shape, data_format='channels_last'))
     model.add(Activation('relu'))
     model.add(Conv2D(nb_filters, kernel_size[0], kernel_size[1]))
@@ -35,9 +36,9 @@ def train_detector(X_train, X_test, Y_train, Y_test, nb_filters = 32, batch_size
     model.summary()
     # (16, 8, 32)
      
-    model.add(Conv2D(nb_filters*2, kernel_size[0], kernel_size[1]))
+    model.add(Conv2D(nb_filters*2, kernel_size[0], kernel_size[1], padding='same'))
     model.add(Activation('relu'))
-    model.add(Conv2D(nb_filters*2, kernel_size[0], kernel_size[1]))
+    model.add(Conv2D(nb_filters*2, kernel_size[0], kernel_size[1], padding='same'))
     model.add(Activation('relu'))
     model.add(MaxPooling2D(pool_size=pool_size))
     print('2')
