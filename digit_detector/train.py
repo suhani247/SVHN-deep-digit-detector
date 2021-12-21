@@ -25,20 +25,20 @@ def train_detector(X_train, X_test, Y_train, Y_test, nb_filters = 32, batch_size
     #input_shape = X_train.shape
 
     model = Sequential()
-    model.add(Conv2D(nb_filters, kernel_size[0], kernel_size[1],
-                            padding='same',
+    model.add(Conv2D(nb_filters, kernel_size,
+                            padding='same', strides=(1,1),
                             input_shape=input_shape, data_format='channels_last'))
     model.add(Activation('relu'))
-    model.add(Conv2D(nb_filters, kernel_size[0], kernel_size[1]))
+    model.add(Conv2D(nb_filters, kernel_size, padding='same', strides=(1,1)))
     model.add(Activation('relu'))
     model.add(MaxPooling2D(pool_size=pool_size))
     print('1')
     model.summary()
     # (16, 8, 32)
      
-    model.add(Conv2D(nb_filters*2, kernel_size[0], kernel_size[1], padding='same'))
+    model.add(Conv2D(nb_filters*2, kernel_size, padding='same', strides=(1,1)))
     model.add(Activation('relu'))
-    model.add(Conv2D(nb_filters*2, kernel_size[0], kernel_size[1], padding='same'))
+    model.add(Conv2D(nb_filters*2, kernel_size, padding='same', strides=(1,1),))
     model.add(Activation('relu'))
     model.add(MaxPooling2D(pool_size=pool_size))
     print('2')
