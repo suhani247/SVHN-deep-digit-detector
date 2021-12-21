@@ -17,7 +17,7 @@ mean_value_for_detector = 107.524
 mean_value_for_recognizer = 112.833
 
 model_input_shape = (32,32,1)
-DIR = '../datasets/svhn/train'
+DIR = '../train'
 
 if __name__ == "__main__":
     # 1. image files
