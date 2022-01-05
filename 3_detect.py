@@ -1,4 +1,6 @@
 #-*- coding: utf-8 -*-
+import os.path
+
 import cv2
 import numpy as np
 import keras.models
@@ -34,8 +36,9 @@ if __name__ == "__main__":
     for img_file in img_files[0:]:
         # 2. image
         img = cv2.imread(img_file)
+        file_name = os.path.basename(img_file)
         #print('calling digit spotter for file ', img_file) 
-        digit_spotter.run(img, img_file, threshold=0.5, do_nms=True, nms_threshold=0.1)
+        digit_spotter.run(img, file_name, threshold=0.5, do_nms=True, nms_threshold=0.1)
 
 
 
