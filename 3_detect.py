@@ -37,6 +37,7 @@ if __name__ == "__main__":
         # 2. image
         img = cv2.imread(img_file)
         file_name = os.path.basename(img_file)
+        file_name = '../detected/modified_' + file_name
         #print('calling digit spotter for file ', img_file) 
         digit_spotter.run(img, file_name, threshold=0.5, do_nms=True, nms_threshold=0.1)
 
