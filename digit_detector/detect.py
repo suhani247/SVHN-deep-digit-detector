@@ -77,7 +77,7 @@ class DigitSpotter:
         self._region_proposer = region_proposer
         
     
-    def run(self, image, threshold=0.7, do_nms=True, show_result=True, nms_threshold=0.3):
+    def run(self, image, file_name, threshold=0.7, do_nms=True, show_result=True, nms_threshold=0.3):
         """Public function to run the DigitSpotter.
 
         Parameters
@@ -124,8 +124,9 @@ class DigitSpotter:
                 y1, y2, x1, x2 = bb
                 msg = "{0}".format(y_pred[i])
                 cv2.putText(image, msg, (x1, y1), cv2.FONT_HERSHEY_SIMPLEX, 1, (0,0,255), thickness=2)
-                
-            cv2.imshow("MSER + CNN", image)
+
+            modified_file = "modified_" + file_name
+            cv2.imwrite(modified_file, image)
             cv2.waitKey(0)
         
         return bbs, probs
