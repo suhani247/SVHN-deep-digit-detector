@@ -3,7 +3,7 @@
 import progressbar
 import cv2
 import numpy as np
-import region_proposal as rp
+import digit_detector.region_proposal as rp
 
 
 class Evaluator(object):
