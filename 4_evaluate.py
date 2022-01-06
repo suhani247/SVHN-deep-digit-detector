@@ -18,7 +18,9 @@ import digit_detector.classify as cls
 model_filename = "detector_model.hdf5"
 model_input_shape = (32,32,1)
 DIR = '../train'
+#DIR = '../test'
 ANNOTATION_FILE = "./annotation/train/digitStruct.json"
+#ANNOTATION_FILE = "./annotation/test/digitStruct.json"
 
 detect_model = "detector_model.hdf5"
 recognize_model = "recognize_model.hdf5"
