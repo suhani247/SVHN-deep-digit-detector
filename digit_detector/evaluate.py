@@ -4,7 +4,7 @@ import progressbar
 import cv2
 import numpy as np
 import digit_detector.region_proposal as rp
-
+import os.path
 
 class Evaluator(object):
     
@@ -36,9 +36,10 @@ class Evaluator(object):
         
         for i, image_file in enumerate(test_image_files):
             test_image = cv2.imread(image_file)
-            
+            file_name = os.path.basename(image_file)
+            file_name = '../detected/modified_' + file_name
             # 1. Get the detected boxes
-            detected_bbs, detected_probs_ = self._detector.run(test_image, threshold=0.5, do_nms=do_nms, nms_threshold=0.1, show_result=False)
+            detected_bbs, detected_probs_ = self._detector.run(test_image, file_name, threshold=0.5, do_nms=do_nms, nms_threshold=0.1, show_result=False)
 
             # 2. Get the true boxes
             true_bbs, true_labels = self._annotator.get_boxes_and_labels(image_file)
