@@ -70,7 +70,6 @@ class MserRegionProposer(_RegionProposer):
     def _get_boxes(self, regions):
         bbs = []
         for i, region in enumerate(regions):
-            #region = np.ascontiguousarray(region, dtype=np.uint8)
             (x, y, w, h) = cv2.boundingRect(region.reshape(-1,1,2))
             bbs.append((y, y+h, x, x+w))
             
