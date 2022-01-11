@@ -8,7 +8,7 @@ import digit_detector.train as train_
 
 DIR = '../train'
 NB_FILTERS = 32
-NB_EPOCH = 1
+NB_EPOCH = 5
 
 DETECTOR_FILE = 'detector_model.hdf5'
 RECOGNIZER_FILE = 'recognize_model.hdf5'
