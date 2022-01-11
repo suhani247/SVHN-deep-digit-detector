@@ -24,8 +24,8 @@ ANNOTATION_FILE = "./annotation/train/digitStruct.json"
 
 detect_model = "detector_model.hdf5"
 recognize_model = "recognize_model.hdf5"
-mean_value_for_detector = 107.524
-mean_value_for_recognizer = 112.833
+mean_value_for_detector = 108.784
+mean_value_for_recognizer = 115.502
 
 
 if __name__ == "__main__":

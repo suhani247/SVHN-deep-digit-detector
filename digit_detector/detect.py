@@ -102,6 +102,7 @@ class DigitSpotter:
         patches = candidate_regions.get_patches(dst_size=self._cls.input_shape)
         
         # 3. Run pre-trained classifier
+        #detection of region
         probs = self._cls.predict_proba(patches)[:, 1]
     
         # 4. Thresholding
@@ -112,6 +113,7 @@ class DigitSpotter:
             bbs, patches, probs = NonMaxSuppressor().run(bbs, patches, probs, nms_threshold)
         
         if len(patches) > 0:
+            #recognize digits
             probs_ = self._recognizer.predict_proba(patches)
             y_pred = probs_.argmax(axis=1)
         
