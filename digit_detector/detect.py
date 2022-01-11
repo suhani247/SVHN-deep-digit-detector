@@ -126,7 +126,6 @@ class DigitSpotter:
                 cv2.putText(image, msg, (x1, y1), cv2.FONT_HERSHEY_SIMPLEX, 1, (0,0,255), thickness=2)
 
 
-            print('saving image to', modified_file)
             cv2.imwrite(modified_file, image)
             cv2.waitKey(0)
         
