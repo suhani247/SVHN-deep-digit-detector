@@ -53,7 +53,12 @@ def train_detector(X_train, X_test, Y_train, Y_test, nb_filters = 32, batch_size
     model.add(Activation('softmax'))
     print('3')
     model.summary()
-    model.compile(loss='categorical_crossentropy',
+
+    if nb_classes == 2:
+        loss = 'binary_crossentropy'
+    else:
+        loss = 'categorical_crossentropy'
+    model.compile(loss=loss,
                   optimizer='adadelta',
                   metrics=['accuracy'])
     
