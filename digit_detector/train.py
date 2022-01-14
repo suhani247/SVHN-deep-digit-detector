@@ -56,6 +56,7 @@ def train_detector(X_train, X_test, Y_train, Y_test, nb_filters = 32, batch_size
 
     if nb_classes == 2:
         loss = 'binary_crossentropy'
+        nb_epoch = 7
     else:
         loss = 'categorical_crossentropy'
     model.compile(loss=loss,
