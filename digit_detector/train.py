@@ -4,6 +4,7 @@ from keras.layers import Dense, Dropout, Activation, Flatten
 from keras.layers import Convolution2D, MaxPooling2D, Conv2D
 from keras import backend as K
 from keras.preprocessing.image import ImageDataGenerator
+from matplotlib import pyplot as plt
 
 import numpy as np
 
@@ -71,13 +72,29 @@ def train_detector(X_train, X_test, Y_train, Y_test, nb_filters = 32, batch_size
             shear_range=0.2,
             zoom_range=0.2)
         datagen.fit(X_train)
-        model.fit_generator(datagen.flow(X_train, Y_train, batch_size=batch_size),
+        history = model.fit_generator(datagen.flow(X_train, Y_train, batch_size=batch_size),
                             samples_per_epoch=len(X_train), epochs=nb_epoch,
                             validation_data=(X_test, Y_test))
     else:
-        model.fit(X_train, Y_train, batch_size=batch_size, epochs=nb_epoch,
+        history = model.fit(X_train, Y_train, batch_size=batch_size, epochs=nb_epoch,
               verbose=1, validation_data=(X_test, Y_test))
     score = model.evaluate(X_test, Y_test, verbose=0)
+    # summarize history for accuracy
+    plt.plot(history.history['accuracy'])
+    plt.plot(history.history['val_accuracy'])
+    plt.title('model accuracy')
+    plt.ylabel('accuracy')
+    plt.xlabel('epoch')
+    plt.legend(['train', 'test'], loc='upper left')
+    plt.savefig('accuracy.pdf')
+    # summarize history for loss
+    plt.plot(history.history['loss'])
+    plt.plot(history.history['val_loss'])
+    plt.title('model loss')
+    plt.ylabel('loss')
+    plt.xlabel('epoch')
+    plt.legend(['train', 'test'], loc='upper left')
+    plt.savefig('loss.pdf')
     print('Test score:', score[0])
     print('Test accuracy:', score[1])
     model.save(save_file)  
