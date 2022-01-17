@@ -55,11 +55,17 @@ def train_detector(X_train, X_test, Y_train, Y_test, nb_filters = 32, batch_size
     print('3')
     model.summary()
 
+    accuracy_plt = ''
+    loss_plt = ''
     if nb_classes == 2:
         loss = 'binary_crossentropy'
-        nb_epoch = 7
+        #nb_epoch = 7
+        accuracy_plt = 'accuracy_detection.pdf'
+        loss_plt = 'loss_detection.pdf'
     else:
         loss = 'categorical_crossentropy'
+        accuracy_plt = 'accuracy_recognition.pdf'
+        loss_plt = 'loss_recognition.pdf'
     model.compile(loss=loss,
                   optimizer='adadelta',
                   metrics=['accuracy'])
@@ -86,7 +92,7 @@ def train_detector(X_train, X_test, Y_train, Y_test, nb_filters = 32, batch_size
     plt.ylabel('accuracy')
     plt.xlabel('epoch')
     plt.legend(['train', 'test'], loc='upper left')
-    plt.savefig('accuracy.pdf')
+    plt.savefig(accuracy_plt)
     # summarize history for loss
     plt.plot(history.history['loss'])
     plt.plot(history.history['val_loss'])
@@ -94,7 +100,7 @@ def train_detector(X_train, X_test, Y_train, Y_test, nb_filters = 32, batch_size
     plt.ylabel('loss')
     plt.xlabel('epoch')
     plt.legend(['train', 'test'], loc='upper left')
-    plt.savefig('loss.pdf')
+    plt.savefig(loss_plt)
     print('Test score:', score[0])
     print('Test accuracy:', score[1])
     model.save(save_file)  
