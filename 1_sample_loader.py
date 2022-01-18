@@ -28,10 +28,14 @@ if __name__ == "__main__":
     print(n_train_files)
     
     extractor = extractor_.Extractor(rp.MserRegionProposer(), ann.SvhnAnnotation(ANNOTATION_FILE), rp.OverlapCalculator())
+    print('Extracting training samples')
     train_samples, train_labels = extractor.extract_patch(files[:n_train_files], PATCH_SIZE, POS_OVERLAP_THD, NEG_OVERLAP_THD)
+    print('Training samples extracted')
 
     extractor = extractor_.Extractor(rp.MserRegionProposer(), ann.SvhnAnnotation(ANNOTATION_FILE), rp.OverlapCalculator())
+    print('Extracting validation samples')
     validation_samples, validation_labels = extractor.extract_patch(files[n_train_files:], PATCH_SIZE, POS_OVERLAP_THD, NEG_OVERLAP_THD)
+    print('Validation samples extracted')
 
     print(train_samples.shape, train_labels.shape)
     print(validation_samples.shape, validation_labels.shape)
