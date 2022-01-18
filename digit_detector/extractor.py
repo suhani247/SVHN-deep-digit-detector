@@ -68,6 +68,8 @@ class Extractor:
         self._negative_samples.append(candidate_patches[overlaps_max<overlap_thd])
 
     def _merge_sample(self):
+        print(self._negative_samples.shape)
+        print(self._positive_samples.shape)
         negative_samples = np.concatenate(self._negative_samples, axis=0)    
         negative_labels = np.zeros((len(negative_samples), 1))
         positive_samples = np.concatenate(self._positive_samples, axis=0)    
