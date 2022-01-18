@@ -24,7 +24,7 @@ class Extractor:
 
     
     def extract_patch(self, image_files, patch_size, positive_overlap_thd, negative_overlap_thd):
-        
+        print('Extraction starts')
         bar = progressbar.ProgressBar(widgets=[' [', progressbar.Timer(), '] ', progressbar.Bar(), ' (', progressbar.ETA(), ') ',], maxval=len(image_files)).start()
     
         for i, image_file in enumerate(image_files):
@@ -49,7 +49,7 @@ class Extractor:
            
             bar.update(i)
         bar.finish()
-         
+        print('Extraction complete')
         return self._merge_sample()
     
     def _append_positive_patch(self, true_patches, true_labels):
