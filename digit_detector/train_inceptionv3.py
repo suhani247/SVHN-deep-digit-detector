@@ -10,6 +10,8 @@ def train_detector(X_train, X_test, Y_train, Y_test, nb_filters = 32, batch_size
     img_rows, img_cols = X_train.shape[1], X_train.shape[2]
     input_shape = (img_rows, img_cols, 3)
 
+    X_train = X_train[:3000]
+    X_test = X_test[:2000]
     rgb_X_train = np.repeat(X_train[..., np.newaxis], 3, -1)
     rgb_X_test = np.repeat(X_test[..., np.newaxis], 3, -1)
     #load pre trained model, exlcuding the last layer
