@@ -4,7 +4,8 @@ import os
 import cv2
 
 import digit_detector.preprocess as preproc
-import digit_detector.train as train_
+#import digit_detector.train as train_
+import digit_detector.train_inceptionv3 as train_
 
 DIR = '../train'
 NB_FILTERS = 32
