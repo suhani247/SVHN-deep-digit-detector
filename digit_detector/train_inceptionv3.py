@@ -37,7 +37,7 @@ def train_detector(X_train, X_test, Y_train, Y_test, nb_filters = 32, batch_size
 
     model.compile(optimizer=Adam(lr=0.0001), loss=loss, metrics=['acc', 'loss'])
 
-    history = model.fit(rgb_X_train, Y_train, batch_size=batch_size, epochs=nb_epoch,
+    history = model.fit(rgb_X_train, Y_train, batch_size=batch_size, epochs=2,
                         verbose=1, validation_data=(rgb_X_test, Y_test))
     score = model.evaluate(rgb_X_test, Y_test, verbose=0)
     # summarize history for accuracy
