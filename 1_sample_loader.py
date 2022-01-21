@@ -16,8 +16,8 @@ DIR = '../train'
 ANNOTATION_FILE = "./annotation/train/digitStruct.json"
 NEG_OVERLAP_THD = 0.05
 POS_OVERLAP_THD = 0.6
-#PATCH_SIZE = (32,32)
-PATCH_SIZE = (75,75)
+PATCH_SIZE = (32,32)
+#PATCH_SIZE = (75,75)
 
 if __name__ == "__main__":
 
