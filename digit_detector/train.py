@@ -93,6 +93,7 @@ def train_detector(X_train, X_test, Y_train, Y_test, nb_filters = 32, batch_size
     plt.xlabel('epoch')
     plt.legend(['train', 'test'], loc='upper left')
     plt.savefig(accuracy_plt)
+    plt.clf()
     # summarize history for loss
     plt.plot(history.history['loss'])
     plt.plot(history.history['val_loss'])
@@ -101,6 +102,7 @@ def train_detector(X_train, X_test, Y_train, Y_test, nb_filters = 32, batch_size
     plt.xlabel('epoch')
     plt.legend(['train', 'test'], loc='upper left')
     plt.savefig(loss_plt)
+    plt.clf()
     print('Test score:', score[0])
     print('Test accuracy:', score[1])
     model.save(save_file)  

@@ -5,13 +5,13 @@ import tensorflow.keras.models as models
 from matplotlib import pyplot as plt
 import numpy as np
 
-def train_detector(X_train, X_test, Y_train, Y_test, nb_filters = 32, batch_size=128, nb_epoch=5, nb_classes=2, do_augment=False, save_file='models/detector_model.hdf5'):
+def train_detector(X_train, X_test, Y_train, Y_test, nb_filters = 32, batch_size=32, nb_epoch=5, nb_classes=2, do_augment=False, save_file='models/detector_model.hdf5'):
     # input image dimensions
     img_rows, img_cols = X_train.shape[1], X_train.shape[2]
     input_shape = (img_rows, img_cols, 3)
 
-    X_train = X_train[:3000]
-    X_test = X_test[:2000]
+   # X_train = X_train[:3000]
+   # X_test = X_test[:2000]
     rgb_X_train = np.repeat(X_train[..., np.newaxis], 3, -1)
     rgb_X_test = np.repeat(X_test[..., np.newaxis], 3, -1)
     #load pre trained model, exlcuding the last layer
