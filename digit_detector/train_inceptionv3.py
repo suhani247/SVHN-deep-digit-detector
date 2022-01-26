@@ -59,7 +59,6 @@ def train_detector(X_train, X_test, Y_train, Y_test, nb_filters = 32, batch_size
     train_it = datagen.flow(X_train, Y_train,batch_size=32, subset='training')
     val_it = datagen.flow(X_test, Y_test, batch_size=32, subset='validation')
 
-
     # confirm the iterator works
     batchX, batchy = train_it.next()
     print('Batch shape=%s, min=%.3f, max=%.3f' % (batchX.shape, batchX.min(), batchX.max()))
@@ -96,4 +95,5 @@ def train_detector(X_train, X_test, Y_train, Y_test, nb_filters = 32, batch_size
 
 
 def gray_to_rgb(x):
+    print('converting')
     return np.repeat(x[..., np.newaxis], 3, -1)
