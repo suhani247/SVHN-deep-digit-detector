@@ -17,7 +17,7 @@ def train_detector(X_train, X_test, Y_train, Y_test, nb_filters = 32, batch_size
 
     print('Adding resize layer')
     #resize images
-    input_tensor = Keras.Input(shape=(32, 32, 1))
+    input_tensor = Keras.Input(shape=(32, 32, 3))
     input_tensor_resize = layers.Lambda(
         lambda image: Keras.backend.resize_images(
             image, (int(100 / 32)), (int(100 / 32)),
@@ -96,5 +96,4 @@ def train_detector(X_train, X_test, Y_train, Y_test, nb_filters = 32, batch_size
 
 
 def gray_to_rgb(x):
-    print(x.shape)
-    return x
+    return np.repeat(x[...,np.newaxis],3,-1)
