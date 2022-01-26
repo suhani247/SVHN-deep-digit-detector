@@ -61,8 +61,8 @@ def train_detector(X_train, X_test, Y_train, Y_test, nb_filters = 32, batch_size
     val_it = datagen.flow(X_test, Y_test, batch_size=32, subset='validation')
 
     # confirm the iterator works
-    batchX, batchy = train_it.next()
-    print('Batch shape=%s, min=%.3f, max=%.3f' % (batchX.shape, batchX.min(), batchX.max()))
+    #batchX, batchy = train_it.next()
+    #print('Batch shape=%s, min=%.3f, max=%.3f' % (batchX.shape, batchX.min(), batchX.max()))
 
     print('Fit model')
     history = model.fit_generator(train_it,
