@@ -96,7 +96,7 @@ def train_detector(X_train, X_test, Y_train, Y_test, nb_filters = 32, batch_size
 
 
 def gray_to_rgb(x):
-    print(x.shape)
-    x = np.repeat(x[...,np.newaxis],3,-1)
-    print(x.shape)
+    #print(x.shape)
+    x = np.repeat(x,3,2)
+    #print(x.shape)
     return x
