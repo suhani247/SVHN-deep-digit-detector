@@ -7,6 +7,7 @@ from tensorflow.keras.preprocessing.image import ImageDataGenerator as ImageData
 import tensorflow.keras.metrics as Metrics
 from matplotlib import pyplot as plt
 import numpy as np
+import tensorflow as tf
 
 def train_detector(X_train, X_test, Y_train, Y_test, nb_filters = 32, batch_size=32, nb_epoch=5, nb_classes=2, do_augment=False, save_file='models/detector_model.hdf5'):
 
@@ -17,16 +18,19 @@ def train_detector(X_train, X_test, Y_train, Y_test, nb_filters = 32, batch_size
 
     print('Adding resize layer')
     #resize images
-    input_tensor = Keras.Input(shape=(32, 32, 3))
+    input_tensor = Keras.Input(shape=(32, 32, 1))
     input_tensor_resize = layers.Lambda(
         lambda image: Keras.backend.resize_images(
             image, (int(100 / 32)), (int(100 / 32)),
             "channels_last")
     )(input_tensor)
+    input_tensor_rgb = layers.Lambda(
+        lambda image: tf.resize(image, repeats=[3],axis=2)
+    )(input_tensor_resize)
 
     print('Adding padding layer')
     # zero padding to get edges info, and a bigger picture
-    y = layers.ZeroPadding2D(padding=4)(input_tensor_resize)
+    y = layers.ZeroPadding2D(padding=4)(input_tensor_rgb)
 
     #load pre trained model, exlcuding the last layer
     pre_trained_model = InceptionV3(include_top=False, weights='imagenet', input_tensor=y)
