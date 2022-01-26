@@ -50,12 +50,19 @@ def train_detector(X_train, X_test, Y_train, Y_test, nb_filters = 32, batch_size
 
     datagen = ImageDataGenerator(featurewise_center=True,featurewise_std_normalization=True,rotation_range=20,
                                  width_shift_range=0.2,height_shift_range=0.2,horizontal_flip=True,validation_split=0.2)
-    datagen.fit(rgb_X_train)
+    #datagen.fit(rgb_X_train)
 
-    history = model.fit_generator(datagen.flow(rgb_X_train, Y_train,batch_size=32, subset='training'),
+    train_it = datagen.flow(rgb_X_train, Y_train,batch_size=32, subset='training')
+    val_it = datagen.flow(rgb_X_test, Y_test, batch_size=32, subset='validation')
+
+
+    # confirm the iterator works
+    batchX, batchy = train_it.next()
+    print('Batch shape=%s, min=%.3f, max=%.3f' % (batchX.shape, batchX.min(), batchX.max()))
+
+    history = model.fit_generator(train_it,
                                   verbose=1,
-                                  validation_data=
-                                  (datagen.flow(rgb_X_test, Y_test, batch_size=32, subset='validation')),
+                                  validation_data=val_it,
                                   validation_steps=len(rgb_X_test)/32,
                                   steps_per_epoch=len(rgb_X_train) / 32,
                                   epochs=2)
