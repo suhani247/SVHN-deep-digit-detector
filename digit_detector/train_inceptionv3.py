@@ -4,6 +4,7 @@ import tensorflow.keras.layers as layers
 import tensorflow.keras.models as models
 import tensorflow.keras as Keras
 from tensorflow.keras.preprocessing.image import ImageDataGenerator as ImageDataGenerator
+import tensorflow.keras.metrics as Metrics
 from matplotlib import pyplot as plt
 import numpy as np
 
@@ -49,11 +50,11 @@ def train_detector(X_train, X_test, Y_train, Y_test, nb_filters = 32, batch_size
         loss_plt = 'v3_loss_recognition.pdf'
 
     print('Compiling model')
-    model.compile(optimizer=Adam(lr=0.0001), loss=loss, metrics=['acc', 'loss'])
+    model.compile(optimizer=Adam(lr=0.0001), loss=loss, metrics=['acc'])
 
     datagen = ImageDataGenerator(featurewise_center=True,featurewise_std_normalization=True,rotation_range=20,
-                                 width_shift_range=0.2,height_shift_range=0.2,horizontal_flip=True,validation_split=0.2)
-                                 #,preprocessing_function=gray_to_rgb)
+                                 width_shift_range=0.2,height_shift_range=0.2,horizontal_flip=True,validation_split=0.2
+                                 preprocessing_function=gray_to_rgb)
     datagen.fit(X_train)
 
     train_it = datagen.flow(X_train, Y_train,batch_size=32, subset='training')
@@ -95,5 +96,5 @@ def train_detector(X_train, X_test, Y_train, Y_test, nb_filters = 32, batch_size
 
 
 def gray_to_rgb(x):
-    print('converting')
-    return np.repeat(x, 3, -1)
+    print(x.shape)
+    return x
