@@ -56,8 +56,8 @@ def train_detector(X_train, X_test, Y_train, Y_test, nb_filters = 32, batch_size
                                  preprocessing_function=gray_to_rgb)
     #datagen.fit(rgb_X_train)
 
-    train_it = datagen.flow(rgb_X_train, Y_train,batch_size=32, subset='training')
-    val_it = datagen.flow(rgb_X_test, Y_test, batch_size=32, subset='validation')
+    train_it = datagen.flow(X_train, Y_train,batch_size=32, subset='training')
+    val_it = datagen.flow(X_test, Y_test, batch_size=32, subset='validation')
 
 
     # confirm the iterator works
@@ -68,10 +68,10 @@ def train_detector(X_train, X_test, Y_train, Y_test, nb_filters = 32, batch_size
     history = model.fit_generator(train_it,
                                   verbose=1,
                                   validation_data=val_it,
-                                  validation_steps=len(rgb_X_test)/32,
-                                  steps_per_epoch=len(rgb_X_train) / 32,
+                                  validation_steps=len(X_test)/32,
+                                  steps_per_epoch=len(X_train) / 32,
                                   epochs=2)
-    score = model.evaluate_generator(datagen.flow(rgb_X_test, Y_test,batch_size=32),verbose=0, steps=rgb_X_test/32)
+    score = model.evaluate_generator(datagen.flow(X_test, Y_test,batch_size=32),verbose=0, steps=X_test/32)
     # summarize history for accuracy
     plt.plot(history.history['accuracy'])
     plt.plot(history.history['val_accuracy'])
