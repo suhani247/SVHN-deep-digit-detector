@@ -25,7 +25,7 @@ def train_detector(X_train, X_test, Y_train, Y_test, nb_filters = 32, batch_size
             "channels_last")
     )(input_tensor)
     input_tensor_rgb = layers.Lambda(
-        lambda image: tf.resize(image, repeats=[3],axis=2)
+        lambda image: tf.repeats(image, repeats=[3],axis=3)
     )(input_tensor_resize)
 
     print('Adding padding layer')
