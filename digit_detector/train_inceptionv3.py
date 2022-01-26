@@ -14,6 +14,7 @@ def train_detector(X_train, X_test, Y_train, Y_test, nb_filters = 32, batch_size
     rgb_X_train = np.repeat(X_train[..., np.newaxis], 3, -1)
     rgb_X_test = np.repeat(X_test[..., np.newaxis], 3, -1)
 
+    print('Adding resize layer')
     #resize images
     input_tensor = Keras.Input(shape=(32, 32, 3))
     input_tensor_resize = layers.Lambda(
@@ -22,6 +23,7 @@ def train_detector(X_train, X_test, Y_train, Y_test, nb_filters = 32, batch_size
             "channels_last")
     )(input_tensor)
 
+    print('Adding padding layer')
     # zero padding to get edges info, and a bigger picture
     y = layers.ZeroPadding2D(padding=4)(input_tensor_resize)
 
@@ -46,6 +48,7 @@ def train_detector(X_train, X_test, Y_train, Y_test, nb_filters = 32, batch_size
         accuracy_plt = 'v3_accuracy_recognition.pdf'
         loss_plt = 'v3_loss_recognition.pdf'
 
+    print('Compiling model')
     model.compile(optimizer=Adam(lr=0.0001), loss=loss, metrics=['acc', 'loss'])
 
     datagen = ImageDataGenerator(featurewise_center=True,featurewise_std_normalization=True,rotation_range=20,
@@ -60,6 +63,7 @@ def train_detector(X_train, X_test, Y_train, Y_test, nb_filters = 32, batch_size
     batchX, batchy = train_it.next()
     print('Batch shape=%s, min=%.3f, max=%.3f' % (batchX.shape, batchX.min(), batchX.max()))
 
+    print('Fit model')
     history = model.fit_generator(train_it,
                                   verbose=1,
                                   validation_data=val_it,
