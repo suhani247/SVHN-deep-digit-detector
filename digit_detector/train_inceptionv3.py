@@ -11,8 +11,8 @@ def train_detector(X_train, X_test, Y_train, Y_test, nb_filters = 32, batch_size
 
    # X_train = X_train[:3000]
    # X_test = X_test[:2000]
-    rgb_X_train = np.repeat(X_train[..., np.newaxis], 3, -1)
-    rgb_X_test = np.repeat(X_test[..., np.newaxis], 3, -1)
+    #rgb_X_train = np.repeat(X_train[..., np.newaxis], 3, -1)
+    #rgb_X_test = np.repeat(X_test[..., np.newaxis], 3, -1)
 
     print('Adding resize layer')
     #resize images
@@ -52,7 +52,8 @@ def train_detector(X_train, X_test, Y_train, Y_test, nb_filters = 32, batch_size
     model.compile(optimizer=Adam(lr=0.0001), loss=loss, metrics=['acc', 'loss'])
 
     datagen = ImageDataGenerator(featurewise_center=True,featurewise_std_normalization=True,rotation_range=20,
-                                 width_shift_range=0.2,height_shift_range=0.2,horizontal_flip=True,validation_split=0.2)
+                                 width_shift_range=0.2,height_shift_range=0.2,horizontal_flip=True,validation_split=0.2,
+                                 preprocessing_function=gray_to_rgb)
     #datagen.fit(rgb_X_train)
 
     train_it = datagen.flow(rgb_X_train, Y_train,batch_size=32, subset='training')
@@ -92,3 +93,7 @@ def train_detector(X_train, X_test, Y_train, Y_test, nb_filters = 32, batch_size
     print('Test score:', score[0])
     print('Test accuracy:', score[1])
     model.save(save_file)
+
+
+def gray_to_rgb(x):
+    return np.repeat(x[..., np.newaxis], 3, -1)
